@@ -154,7 +154,7 @@ public class MinifyMojo extends AbstractMojo {
 
     /**
      * The output filename suffix.
-     * 
+     *
      * @parameter expression="${suffix}" default-value=".min"
      * @since 1.3.2
      */
@@ -168,6 +168,15 @@ public class MinifyMojo extends AbstractMojo {
      * @since 1.7
      */
     private boolean nosuffix;
+
+    /**
+     * Keep the merged intermediary file when doing a merge + minify. This option only has effect if a <code>nosuffix</code> is not set to
+     * <code>true</code>
+     *
+     * @parameter expression="${keepMerged}" default-value="false"
+     * @since 1.7.1
+     */
+    private boolean keepMerged;
 
     /**
      * <p>
@@ -294,12 +303,13 @@ public class MinifyMojo extends AbstractMojo {
 
         final Collection<ProcessFilesTask> processFilesTasks = new ArrayList<ProcessFilesTask>();
         processFilesTasks.add(new ProcessCSSFilesTask(this.getLog(), this.bufferSize, this.debug, this.skipMerge, this.skipMinify,
-                this.webappSourceDir, this.webappTargetDir, this.cssSourceDir, this.cssSourceFiles, this.cssSourceIncludes, this.cssSourceExcludes,
-                this.cssTargetDir, this.cssFinalFile, this.suffix, this.nosuffix, this.charset, this.linebreak));
+                this.webappSourceDir, this.webappTargetDir, this.cssSourceDir, this.cssSourceFiles, this.cssSourceIncludes,
+                this.cssSourceExcludes, this.cssTargetDir, this.cssFinalFile, this.suffix, this.nosuffix, this.keepMerged, this.charset,
+                this.linebreak));
         processFilesTasks.add(new ProcessJSFilesTask(this.getLog(), this.bufferSize, this.debug, this.skipMerge, this.skipMinify,
-                this.webappSourceDir, this.webappTargetDir, this.jsSourceDir, this.jsSourceFiles, this.jsSourceIncludes, this.jsSourceExcludes,
-                this.jsTargetDir, this.jsFinalFile, this.suffix, this.nosuffix, this.charset, this.linebreak, this.jsEngine, !this.nomunge, this.verbose,
-                this.preserveAllSemiColons, this.disableOptimizations));
+                this.webappSourceDir, this.webappTargetDir, this.jsSourceDir, this.jsSourceFiles, this.jsSourceIncludes,
+                this.jsSourceExcludes, this.jsTargetDir, this.jsFinalFile, this.suffix, this.nosuffix, this.keepMerged, this.charset,
+                this.linebreak, this.jsEngine, !this.nomunge, this.verbose, this.preserveAllSemiColons, this.disableOptimizations));
 
         final ExecutorService executor = Executors.newFixedThreadPool(2);
         try {

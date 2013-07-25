@@ -61,12 +61,14 @@ public class ProcessCSSFilesTask extends ProcessFilesTask {
      *        Otherwise, only byte-to-byte operations are used
      * @param linebreak split long lines after a specific column
      */
-    public ProcessCSSFilesTask(final Log log, final Integer bufferSize, final boolean debug, final boolean skipMerge, final boolean skipMinify,
-            final String webappSourceDir, final String webappTargetDir, final String inputDir, final List<String> sourceFiles,
-            final List<String> sourceIncludes, final List<String> sourceExcludes, final String outputDir, final String outputFilename,
-            final String suffix, final boolean nosuffix, final String charset, final int linebreak) {
-        super(log, bufferSize, debug, skipMerge, skipMinify, webappSourceDir, webappTargetDir, inputDir, sourceFiles,
-                sourceIncludes, sourceExcludes, outputDir, outputFilename, suffix, nosuffix, charset, linebreak);
+    public ProcessCSSFilesTask(final Log log, final Integer bufferSize, final boolean debug, final boolean skipMerge,
+            final boolean skipMinify, final String webappSourceDir, final String webappTargetDir, final String inputDir,
+            final List<String> sourceFiles, final List<String> sourceIncludes, final List<String> sourceExcludes, final String outputDir,
+            final String outputFilename, final String suffix, final boolean nosuffix, final boolean keepMerged, final String charset,
+            final int linebreak)
+    {
+        super(log, bufferSize, debug, skipMerge, skipMinify, webappSourceDir, webappTargetDir, inputDir, sourceFiles, sourceIncludes,
+                sourceExcludes, outputDir, outputFilename, suffix, nosuffix, keepMerged, charset, linebreak);
     }
 
     /**

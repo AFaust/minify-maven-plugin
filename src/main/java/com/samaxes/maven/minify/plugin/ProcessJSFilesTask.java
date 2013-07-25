@@ -83,13 +83,15 @@ public class ProcessJSFilesTask extends ProcessFilesTask {
      * @param preserveAllSemiColons preserve unnecessary semicolons
      * @param disableOptimizations disable all the built-in micro optimizations
      */
-    public ProcessJSFilesTask(final Log log, final Integer bufferSize, final boolean debug, final boolean skipMerge, final boolean skipMinify,
-            final String webappSourceDir, final String webappTargetDir, final String inputDir, final List<String> sourceFiles,
-            final List<String> sourceIncludes, final List<String> sourceExcludes, final String outputDir, final String outputFilename,
-            final String suffix, final boolean nosuffix, final String charset, final int linebreak, final String jsEngine, final boolean munge,
-            final boolean verbose, final boolean preserveAllSemiColons, final boolean disableOptimizations) {
-        super(log, bufferSize, debug, skipMerge, skipMinify, webappSourceDir, webappTargetDir, inputDir, sourceFiles,
-                sourceIncludes, sourceExcludes, outputDir, outputFilename, suffix, nosuffix, charset, linebreak);
+    public ProcessJSFilesTask(final Log log, final Integer bufferSize, final boolean debug, final boolean skipMerge,
+            final boolean skipMinify, final String webappSourceDir, final String webappTargetDir, final String inputDir,
+            final List<String> sourceFiles, final List<String> sourceIncludes, final List<String> sourceExcludes, final String outputDir,
+            final String outputFilename, final String suffix, final boolean nosuffix, final boolean keepMerged, final String charset,
+            final int linebreak, final String jsEngine, final boolean munge, final boolean verbose, final boolean preserveAllSemiColons,
+            final boolean disableOptimizations)
+    {
+        super(log, bufferSize, debug, skipMerge, skipMinify, webappSourceDir, webappTargetDir, inputDir, sourceFiles, sourceIncludes,
+                sourceExcludes, outputDir, outputFilename, suffix, nosuffix, keepMerged, charset, linebreak);
 
         this.jsEngine = jsEngine;
         this.munge = munge;

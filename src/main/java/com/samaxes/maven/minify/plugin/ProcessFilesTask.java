@@ -66,6 +66,8 @@ public abstract class ProcessFilesTask implements Callable<Object> {
 
     protected final boolean nosuffix;
 
+    protected final boolean keepMerged;
+
     protected final String suffix;
 
     private final String mergedFilename;
@@ -105,7 +107,9 @@ public abstract class ProcessFilesTask implements Callable<Object> {
     public ProcessFilesTask(final Log log, final Integer bufferSize, final boolean debug, final boolean skipMerge, final boolean skipMinify,
             final String webappSourceDir, final String webappTargetDir, final String inputDir, final List<String> sourceFilenames,
             final List<String> sourceIncludes, final List<String> sourceExcludes, final String outputDir, final String outputFilename,
-            final String suffix, final boolean nosuffix, final String charset, final int linebreak) {
+ final String suffix, final boolean nosuffix, final boolean keepMerged,
+            final String charset, final int linebreak)
+    {
         this.log = log;
         this.bufferSize = bufferSize;
         this.debug = debug;
@@ -114,6 +118,7 @@ public abstract class ProcessFilesTask implements Callable<Object> {
         this.charset = charset;
         this.linebreak = linebreak;
         this.nosuffix = nosuffix;
+        this.keepMerged = keepMerged;
         this.mergedFilename = outputFilename;
         this.suffix = suffix;
 
@@ -179,7 +184,21 @@ public abstract class ProcessFilesTask implements Callable<Object> {
 
                 } else {
 
-                    final File mergedFile = new File(this.targetDir, (this.nosuffix) ? this.mergedFilename + TEMP_SUFFIX : this.mergedFilename);
+                    final String mergedFileName;
+                    if (this.nosuffix)
+                    {
+                        if (this.keepMerged)
+                        {
+                            this.log.warn("Can't keep merged version since nosuffix has been set");
+                        }
+                        mergedFileName = this.mergedFilename + TEMP_SUFFIX;
+                    }
+                    else
+                    {
+                        mergedFileName = this.mergedFilename;
+                    }
+
+                    final File mergedFile = new File(this.targetDir, mergedFileName);
                     this.merge(mergedFile);
 
                     String extension = FileUtils.getExtension(this.mergedFilename);
@@ -188,11 +207,22 @@ public abstract class ProcessFilesTask implements Callable<Object> {
                         // need to manually add the dot which is explicitly not returned
                         extension = "." + extension;
                     }
-                    final File minifiedFile = new File(this.targetDir, (this.nosuffix) ? this.mergedFilename
-                            : FileUtils.removeExtension(this.mergedFilename) + this.suffix + extension);
+
+                    final String minifiedFileName;
+                    if (this.nosuffix)
+                    {
+                        minifiedFileName = this.mergedFilename;
+                    }
+                    else
+                    {
+                        minifiedFileName = FileUtils.removeExtension(this.mergedFilename) + this.suffix + extension;
+                    }
+
+                    final File minifiedFile = new File(this.targetDir, minifiedFileName);
                     this.minify(mergedFile, minifiedFile);
 
-                    if (this.nosuffix) {
+                    if (this.nosuffix || !this.keepMerged)
+                    {
                         mergedFile.deleteOnExit();
                     }
                 }
