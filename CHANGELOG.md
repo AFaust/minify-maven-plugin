@@ -2,35 +2,36 @@
 
 ## 1.7.1
 
-* Update Google Closure Compiler to v20130411.
+* Update Google Closure Compiler to v20130722.
 
 ## 1.7
 
-* [MINIFY-16] Added `nosuffix` option to avoid the suffix (.min) on the minified output filename.
-* [MINIFY-17] Option to use same subdirectory on target as in source.
-* [MINIFY-19] Build should fail if compiler can't parse/compile source files.
+* Added `nosuffix` option to avoid the suffix (.min) on the minified output filename (#16).
+* Option to use same subdirectory on target as in source (#17).
+* Build should fail if compiler can't parse/compile source files (#19).
 * Add `UTF-8` as the default charset.
 * Log compression gains.
 * Require Java SE 7 for better resource management. See [AutoCloseable](http://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html) interface and [try-with-resources](http://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) statements.
 
 ## 1.6
 
-* [MINIFY-14] Add support for [Google Closure Compiler](https://developers.google.com/closure/compiler/) for JavaScript compression.
+
+* Add support for [Google Closure Compiler](https://developers.google.com/closure/compiler/) for JavaScript compression (#14).
 
 ## 1.5.2
 
-* [MINIFY-5] New goal parameter to log full source file paths and new FAQ entry pointing to the plugin goal parameters.
-* [MINIFY-11] Option to skip the minify step.
-* [MINIFY-13] Option to skip the merge step.
+* New goal parameter to log full source file paths and new FAQ entry pointing to the plugin goal parameters (#5).
+* Option to skip the minify step (#11).
+* Option to skip the merge step (#13).
 
 ## 1.5.1
 
-* [MINIFY-2] Cannot process the same filename of files in different directories.
-* [MINIFY-3] CSS minification fails for base64 encoded background images.
+* Cannot process the same filename of files in different directories (#2).
+* CSS minification fails for base64 encoded background images (#3).
 
 ## 1.5
 
-* [MINIFY-1] Fix charset issue.
+* Fix charset issue (#1).
 * Update Maven site skin.
 * Use `ExecutorService` to wait for all tasks to finish.
 * Add support for CLI-based configuration and Maven 2.2.1. From [Configuring Plugin Goals in Maven 3](http://www.sonatype.com/people/2011/03/configuring-plugin-goals-in-maven-3/):
